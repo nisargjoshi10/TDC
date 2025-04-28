@@ -11,6 +11,8 @@ from typing import List
 import time, os, math, re
 from packaging import version
 import pkg_resources
+from dockstring import load_target
+
 
 try:
     import rdkit
@@ -1874,6 +1876,30 @@ def smina(ligand, protein, score_only=False, raw_input=False):
     else:
         os.system(f"./{smina_model_path} -l {ligand} -r {protein} --score_only")
 
+def Dockstring(smiles, target):
+    """
+    Gets docking score and docking pose of a ligand that binds to a binding protein using Dockstring.
+    García-Ortegón, Miguel, et al., 2021
+
+    Parameters
+    ----------
+    ligand: string
+        SMILES string of the docking ligand.
+    target protein: string
+        Target protein name which the ligand binds to. Available target proteins with dockstring: ['ABL1', 'ACHE', 'ADAM17', 'ADORA2A', 'ADRB1', 'ADRB2', 'AKT1', 'AKT2', 'AR', 'BACE1', 'CA2', 'CASP3', 'CDK2', 'CSF1R', 'CYP2C9', 'CYP3A4', 'DHFR', 'DPP4', 'DRD2', 'DRD3', 'EGFR', 'ESR1', 'ESR2', 'F10', 'F2', 'FGFR1', 'GBA', 'HMGCR', 'HSD11B1', 'HSP90AA1', 'IGF1R', 'JAK2', 'KDR', 'KIT', 'LCK', 'MAOB', 'MAP2K1', 'MAPK14', 'MAPK1', 'MAPKAPK2', 'MET', 'MMP13', 'NOS1', 'NR3C1', 'PARP1', 'PDE5A', 'PGR', 'PLK1', 'PPARA', 'PPARD', 'PPARG', 'PTGS2', 'PTK2', 'PTPN1', 'REN', 'ROCK1', 'SRC', 'THRB']
+
+    Returns
+    -------
+    score: float
+        docking score
+    aux: dict
+        list of all scores found by Autodock Vina as well as the docking pose of the best score.
+    """
+
+    target = load_target(target)
+    score, aux = target.dock(smiles, num_cpus=8)
+
+    return score, aux
 
 # os.system("python docking.py " + ligand_pdbqt_file + \
 #           " "+target_pdbqt_file + " " + output_file +' '+ \
