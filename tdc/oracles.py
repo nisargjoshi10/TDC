@@ -30,15 +30,13 @@ class Oracle:
 
     Args:
         name (str): the name of the oracle
-        dockstring_target (None, optional): target proteins for dockstring calculation
         target_smiles (None, optional): target smiles for some meta-oracles
         num_max_call (None, optional): number of maximum calls for oracle, used by docking group
         **kwargs: additional parameters for some oracles
     """
 
-    def __init__(self, name, dockstring_target=None, target_smiles=None, num_max_call=None, **kwargs):
+    def __init__(self, name, target_smiles=None, num_max_call=None, **kwargs):
         """Summary"""
-        self.dockstring_target = dockstring_target
         self.target_smiles = target_smiles
         self.kwargs = kwargs
         self.normalize = lambda x: x
@@ -576,7 +574,8 @@ class Oracle:
             return self.evaluator_func(*args, **kwargs)
 
         from rdkit import Chem
-
+        
+        print('args', args)
         smiles_lst = args[0]
         if self.name == "molecule_one_synthesis":
             return self.evaluator_func(*args, **kwargs)
@@ -616,9 +615,8 @@ class Oracle:
                 results_lst = []
 
                 if self.name == "Dockstring":
-                    dockstring_target = self.dockstring_target
                     for smiles in smiles_lst:
-                        results_lst.append((self.evaluator_func(smiles, dockstring_target)))
+                        results_lst.append((self.evaluator_func(smiles, **kwargs)))
 
                 elif not self.name == "docking_score":
                     for smiles in smiles_lst:
@@ -664,8 +662,7 @@ class Oracle:
                     all_[i] = fct(*args, **kwargs)
                 return all_
             elif self.name == "Dockstring":
-                dockstring_target = self.dockstring_target
-                score = self.evaluator_func(*args, dockstring_target)
+                score = self.evaluator_func(*args, **kwargs)
                 return score
             else:
                 try:
