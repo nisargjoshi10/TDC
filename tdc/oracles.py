@@ -548,7 +548,7 @@ class Oracle:
 
             self.evaluator_func = smina
 
-        elif self.name == "dockstring":
+        elif self.name == "Dockstring":
             from .chem_utils import Dockstring
             self.evaluator_func = Dockstring
 
