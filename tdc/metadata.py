@@ -651,6 +651,7 @@ meta_oracle_name = [
     "docking_score",
     "molecule_one_synthesis",
     "pyscreener",
+    "Dockstring"
 ]
 
 oracle_names = (download_oracle_names + trivial_oracle_names +
