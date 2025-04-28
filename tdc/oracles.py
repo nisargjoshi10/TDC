@@ -615,7 +615,7 @@ class Oracle:
             else:
                 results_lst = []
 
-                if self.name == "dockstring":
+                if self.name == "Dockstring":
                     dockstring_target = self.dockstring_target
                     for smiles in smiles_lst:
                         results_lst.append((self.evaluator_func(smiles, dockstring_target)))
