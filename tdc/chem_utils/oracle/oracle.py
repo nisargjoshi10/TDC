@@ -28,10 +28,11 @@ except:
     raise ImportError(
         "Please install rdkit by 'conda install -c conda-forge rdkit'! ")
 
-try:
-    from scipy.stats.mstats import gmean
-except:
-    raise ImportError("Please install rdkit by 'pip install scipy'! ")
+from scipy.stats.mstats import gmean
+#try:
+#    from scipy.stats.mstats import gmean
+#except:
+#    raise ImportError("Please install rdkit by 'pip install scipy'! ")
 
 try:
     import networkx as nx

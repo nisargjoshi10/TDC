@@ -663,7 +663,7 @@ class Oracle:
                 for i, fct in self.evaluator_func.items():
                     all_[i] = fct(*args, **kwargs)
                 return all_
-            elif self.name == "dockstring":
+            elif self.name == "Dockstring":
                 dockstring_target = self.dockstring_target
                 score = self.evaluator_func(*args, dockstring_target)
                 return score
