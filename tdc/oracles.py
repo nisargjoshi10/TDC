@@ -575,7 +575,6 @@ class Oracle:
 
         from rdkit import Chem
         
-        print('args', args)
         smiles_lst = args[0]
         if self.name == "molecule_one_synthesis":
             return self.evaluator_func(*args, **kwargs)
