@@ -30,13 +30,15 @@ class Oracle:
 
     Args:
         name (str): the name of the oracle
+        dockstring_target (None, optional): target proteins for dockstring calculation
         target_smiles (None, optional): target smiles for some meta-oracles
         num_max_call (None, optional): number of maximum calls for oracle, used by docking group
         **kwargs: additional parameters for some oracles
     """
 
-    def __init__(self, name, target_smiles=None, num_max_call=None, **kwargs):
+    def __init__(self, name, dockstring_target=None, target_smiles=None, num_max_call=None, **kwargs):
         """Summary"""
+        self.dockstring_target = dockstring_target
         self.target_smiles = target_smiles
         self.kwargs = kwargs
         self.normalize = lambda x: x
@@ -546,6 +548,10 @@ class Oracle:
 
             self.evaluator_func = smina
 
+        elif self.name == "dockstring":
+            from .chem_utils import Dockstring
+            self.evaluator_func = Dockstring
+
         else:
             return
 
@@ -609,7 +615,12 @@ class Oracle:
             else:
                 results_lst = []
 
-                if not self.name == "docking_score":
+                if self.name == "dockstring":
+                    dockstring_target = self.dockstring_target
+                    for smiles in smiles_lst:
+                        results_lst.append((self.evaluator_func(smiles, dockstring_target)))
+
+                elif not self.name == "docking_score":
                     for smiles in smiles_lst:
                         results_lst.append(
                             self.normalize(
@@ -652,6 +663,10 @@ class Oracle:
                 for i, fct in self.evaluator_func.items():
                     all_[i] = fct(*args, **kwargs)
                 return all_
+            elif self.name == "dockstring":
+                dockstring_target = self.dockstring_target
+                score = self.evaluator_func(*args, dockstring_target)
+                return score
             else:
                 try:
                     score = self.evaluator_func(*args, **kwargs)
