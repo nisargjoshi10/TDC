@@ -1892,14 +1892,12 @@ def Dockstring(smiles, target):
     -------
     score: float
         docking score
-    aux: dict
-        list of all scores found by Autodock Vina as well as the docking pose of the best score.
     """
 
     target = load_target(target)
     score, aux = target.dock(smiles, num_cpus=8)
 
-    return score, aux
+    return score
 
 # os.system("python docking.py " + ligand_pdbqt_file + \
 #           " "+target_pdbqt_file + " " + output_file +' '+ \
