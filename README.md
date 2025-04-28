@@ -69,8 +69,12 @@ See [here](https://tdcommons.ai/news/) for the latest updates in TDC!
 
 To install the core environment dependencies of TDC, use `pip`:
 
+```
+conda install numpy pandas tqdm scikit-learn fuzzywuzzy seaborn
+```
+
 ```bash
-pip install PyTDC
+pip install -r requirements.txt
 ```
 
 **Note**: TDC is in the beta release. Please update your local copy regularly by
