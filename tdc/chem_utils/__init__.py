@@ -12,6 +12,7 @@ from .oracle.oracle import (
     Vina_3d,
     Score_3d,
     Vina_smiles,
+    Dockstring,
     molecule_one_retro,
     ibm_rxn,
     askcos,
