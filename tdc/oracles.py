@@ -615,7 +615,7 @@ class Oracle:
 
                 if self.name == "Dockstring":
                     for smiles in smiles_lst:
-                        results_lst.append((self.evaluator_func(smiles, **kwargs)))
+                        results_lst.append((self.evaluator_func(smiles, *(args[1:]), **kwargs)))
 
                 elif not self.name == "docking_score":
                     for smiles in smiles_lst:
