@@ -546,9 +546,10 @@ class Oracle:
 
             self.evaluator_func = smina
 
-        elif self.name == "Dockstring":
+        elif self.name.endswith("_dockstring"):
             from .chem_utils import Dockstring
-            self.evaluator_func = Dockstring
+            target_name = self.name.split("_")[0]
+            self.evaluator_func = Dockstring(target_name)
 
         else:
             return
@@ -613,11 +614,8 @@ class Oracle:
             else:
                 results_lst = []
 
-                if self.name == "Dockstring":
-                    for smiles in smiles_lst:
-                        results_lst.append((self.evaluator_func(smiles, *(args[1:]), **kwargs)))
 
-                elif not self.name == "docking_score":
+                if not self.name == "docking_score":
                     for smiles in smiles_lst:
                         results_lst.append(
                             self.normalize(
@@ -660,9 +658,7 @@ class Oracle:
                 for i, fct in self.evaluator_func.items():
                     all_[i] = fct(*args, **kwargs)
                 return all_
-            elif self.name == "Dockstring":
-                score = self.evaluator_func(*args, **kwargs)
-                return score
+            
             else:
                 try:
                     score = self.evaluator_func(*args, **kwargs)

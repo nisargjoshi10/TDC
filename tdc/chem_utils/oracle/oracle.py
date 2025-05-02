@@ -1877,29 +1877,34 @@ def smina(ligand, protein, score_only=False, raw_input=False):
     else:
         os.system(f"./{smina_model_path} -l {ligand} -r {protein} --score_only")
 
-def Dockstring(smiles, target):
-    """
-    Gets docking score and docking pose of a ligand that binds to a binding protein using Dockstring.
-    García-Ortegón, Miguel, et al., 2021
+class Dockstring:
 
-    Parameters
-    ----------
-    ligand: string
-        SMILES string of the docking ligand.
-    target protein: string
-        Target protein name which the ligand binds to. Available target proteins with dockstring: ['ABL1', 'ACHE', 'ADAM17', 'ADORA2A', 'ADRB1', 'ADRB2', 'AKT1', 'AKT2', 'AR', 'BACE1', 'CA2', 'CASP3', 'CDK2', 'CSF1R', 'CYP2C9', 'CYP3A4', 'DHFR', 'DPP4', 'DRD2', 'DRD3', 'EGFR', 'ESR1', 'ESR2', 'F10', 'F2', 'FGFR1', 'GBA', 'HMGCR', 'HSD11B1', 'HSP90AA1', 'IGF1R', 'JAK2', 'KDR', 'KIT', 'LCK', 'MAOB', 'MAP2K1', 'MAPK14', 'MAPK1', 'MAPKAPK2', 'MET', 'MMP13', 'NOS1', 'NR3C1', 'PARP1', 'PDE5A', 'PGR', 'PLK1', 'PPARA', 'PPARD', 'PPARG', 'PTGS2', 'PTK2', 'PTPN1', 'REN', 'ROCK1', 'SRC', 'THRB']
+    def __init__(self, target_name, num_cpus=8):
+        """
+        Prepares dockstring target
+        
+        Parameters
+        ----------
+        target protein: string
+            Target protein name which the ligand binds to. Available target proteins with dockstring: ['ABL1', 'ACHE', 'ADAM17', 'ADORA2A', 'ADRB1', 'ADRB2', 'AKT1', 'AKT2', 'AR', 'BACE1', 'CA2', 'CASP3', 'CDK2', 'CSF1R', 'CYP2C9', 'CYP3A4', 'DHFR', 'DPP4', 'DRD2', 'DRD3', 'EGFR', 'ESR1', 'ESR2', 'F10', 'F2', 'FGFR1', 'GBA', 'HMGCR', 'HSD11B1', 'HSP90AA1', 'IGF1R', 'JAK2', 'KDR', 'KIT', 'LCK', 'MAOB', 'MAP2K1', 'MAPK14', 'MAPK1', 'MAPKAPK2', 'MET', 'MMP13', 'NOS1', 'NR3C1', 'PARP1', 'PDE5A', 'PGR', 'PLK1', 'PPARA', 'PPARD', 'PPARG', 'PTGS2', 'PTK2', 'PTPN1', 'REN', 'ROCK1', 'SRC', 'THRB']
 
-    Returns
-    -------
-    score: float
-        docking score
-    """
+        """
+        self.target_name = target_name
+        self.num_cpus = num_cpus
+        self.target = load_target(self.target_name)
 
-    target = load_target(target)
-    score, aux = target.dock(smiles, num_cpus=8)
+    def __call__(self, smiles):
+        """
+        Docks a ligand (SMILES) to the target protein with Dockstring and returns the docking score
+        
+        Parameters
+        ----------
+        ligand SMILES: string
 
-    return score
-
-# os.system("python docking.py " + ligand_pdbqt_file + \
-#           " "+target_pdbqt_file + " " + output_file +' '+ \
-#           docking_center_string + ' ' + box_size_string)
+        Returns
+        -------
+        score: float
+            docking score
+        """
+        score, aux = self.target.dock(smiles, num_cpus=self.num_cpus
+        return score
