@@ -71,6 +71,7 @@ class Oracle:
             self.num_max_call = num_max_call
         else:
             self.num_max_call = None
+        print('self.name', self.name)
 
     def assign_evaluator(self):
         """assign the specific oracle function given by query oracle name"""
@@ -548,7 +549,9 @@ class Oracle:
 
         elif self.name.endswith("_dockstring"):
             from .chem_utils import Dockstring
+            print(Dockstring)
             target_name = self.name.split("_")[0]
+            print('target_name:', target_name)
             self.evaluator_func = Dockstring(target_name)
 
         else:

@@ -651,13 +651,72 @@ meta_oracle_name = [
     "docking_score",
     "molecule_one_synthesis",
     "pyscreener",
-    "Dockstring"
 ]
+
+dockstring_target_names = [
+"ABL1_dockstring",
+"ACHE_dockstring",
+"ADAM17_dockstring",
+"ADORA2A_dockstring",
+"ADRB1_dockstring",
+"ADRB2_dockstring",
+"AKT1_dockstring",
+"AKT2_dockstring",
+"AR_dockstring",
+"BACE1_dockstring",
+"CA2_dockstring",
+"CASP3_dockstring",
+"CDK2_dockstring",
+"CSF1R_dockstring",
+"CYP2C9_dockstring",
+"CYP3A4_dockstring",
+"DHFR_dockstring",
+"DPP4_dockstring",
+"DRD2_dockstring",
+"DRD3_dockstring",
+"EGFR_dockstring",
+"ESR1_dockstring",
+"ESR2_dockstring",
+"F10_dockstring",
+"F2_dockstring",
+"FGFR1_dockstring",
+"GBA_dockstring",
+"HMGCR_dockstring",
+"HSD11B1_dockstring",
+"HSP90AA1_dockstring",
+"IGF1R_dockstring",
+"JAK2_dockstring",
+"KDR_dockstring",
+"KIT_dockstring",
+"LCK_dockstring",
+"MAOB_dockstring",
+"MAP2K1_dockstring",
+"MAPK14_dockstring",
+"MAPK1_dockstring",
+"MAPKAPK2_dockstring",
+"MET_dockstring",
+"MMP13_dockstring",
+"NOS1_dockstring",
+"NR3C1_dockstring",
+"PARP1_dockstring",
+"PDE5A_dockstring",
+"PGR_dockstring",
+"PLK1_dockstring",
+"PPARA_dockstring",
+"PPARD_dockstring",
+"PPARG_dockstring",
+"PTGS2_dockstring",
+"PTK2_dockstring",
+"PTPN1_dockstring",
+"REN_dockstring",
+"ROCK1_dockstring",
+"SRC_dockstring",
+"THRB_dockstring"]
 
 oracle_names = (download_oracle_names + trivial_oracle_names +
                 distribution_oracles + synthetic_oracle_name +
                 meta_oracle_name + docking_oracles +
-                download_receptor_oracle_name)
+                download_receptor_oracle_name + dockstring_target_names)
 
 molgenpaired_dataset_names = ["qed", "drd2", "logp"]
 
