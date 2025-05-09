@@ -1907,4 +1907,4 @@ class Dockstring:
             docking score
         """
         score, aux = self.target.dock(smiles, num_cpus=self.num_cpus)
-        return score
+        return min(0, score)*(-1)
